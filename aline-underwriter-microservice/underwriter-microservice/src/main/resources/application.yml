@@ -1,0 +1,33 @@
+server:
+  port: 8071
+
+spring:
+  application:
+    name: "underwriter-microservice"
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    username: dev
+    password: mypassword
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://127.0.0.1:3306/aline"
+    initialization-mode: always # This is to automatically insert data.sql
+
+app:
+  email:
+    enable: true
+    from: "no-reply@alinefinancial.com"
+  aws:
+    email:
+      template-bucket-name: "aline-email-templates"
+    credentials:
+      access-key-id: "${APP_USER_ACCESS_KEY}"
+      secret-access-key: "${APP_USER_SECRET_KEY}"
+  landing-portal: "${PORTAL_LANDING}"
+  member-dashboard: "${PORTAL_DASHBOARD}"
+  security:
+    secret-key: "ThisIsAGreatSecretKey!!!"
+    jwt:
+      secret-key: "eyJhbGciOiJIUzIlNiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91liwiaWF0IjoxNTE2MjM5MDIyfQ.Sf1KxwRJSMeKKF2QT4fwpMeJf36P0k6yJV_adQssw5c"

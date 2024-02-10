@@ -1,0 +1,23 @@
+# Account Microservice
+
+server:
+  port: 8074
+
+spring:
+  application:
+    name: "account"
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    username: dev
+    password: mypassword
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://127.0.0.1:3306/aline"
+    initialization-mode: always
+
+app:
+  security:
+    secret-key: "ThisIsAGreatSecretKey!!!"
+    jwt:
+      secret-key: "eyJhbGciOiJIUzIlNiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91liwiaWF0IjoxNTE2MjM5MDIyfQ.Sf1KxwRJSMeKKF2QT4fwpMeJf36P0k6yJV_adQssw5c"
