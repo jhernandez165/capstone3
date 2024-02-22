@@ -1,26 +1,30 @@
 #!/bin/bash
 
-# Function to start a microservice
+# To end all running microservices, CTRL C and delete the shell instance.
+
 start_microservice() {
-  # $1 = port to be assigned to the microservice
-  # $2 = path to the JAR file to run
-  echo "Starting microservice on port $1..."
-  
-  java -jar "$2" --server.port="$1" &
-  
-  # Gives time for the service to start up before starting the next one.
-  sleep 18
+    # $1 = port to be assigned to the microservice yaml at runtime
+    export APP_PORT=$1
+    # $2 = jar file to run (found in microservice readme)
+    java -jar $2 &
+    # gives time for each service to start up before swapping ports to start next service
+    sleep 18
 }
 
-# Start each microservice with the correct port and path to the JAR file
-# Make sure the path to the JAR files is correct
+# Gateway Microservice
+start_microservice 8080 "aline-gateway/target/aline-gateway-0.0.1-SNAPSHOT.jar --server.port=8090"
 
-start_microservice 8071 "/Users/jonathanhernandez/capstone_project_smoothstack/aline-underwriter-microservice/underwriter-microservice/target/underwriter-microservice-0.1.0.jar"
-start_microservice 8070 "/Users/jonathanhernandez/capstone_project_smoothstack/aline-user-microservice/user-microservice/target/user-microservice-0.1.0.jar"
-start_microservice 8073 "/Users/jonathanhernandez/capstone_project_smoothstack/aline-bank-microservice/bank-microservice/target/bank-microservice-0.1.0.jar"
-start_microservice 8074 "/Users/jonathanhernandez/capstone_project_smoothstack/aline-account-microservice/account-microservice/target/account-microservice-0.1.0.jar"
-start_microservice 8072 "/Users/jonathanhernandez/capstone_project_smoothstack/aline-transaction-microservice/transaction-microservice/target/transaction-microservice-0.1.0.jar"
-start_microservice 8080 "/Users/jonathanhernandez/capstone_project_smoothstack/aline-gateway/target/aline-gateway-0.0.1-SNAPSHOT.jar"
+# Underwriter Microservice
+start_microservice 8071 "aline-underwriter-microservice/underwriter-microservice/target/underwriter-microservice-0.1.0.jar" 
 
-# Wait for all services to start
-wait
+# User Microservice
+start_microservice 8070 "aline-user-microservice/user-microservice/target/user-microservice-0.1.0.jar" 
+
+# Bank Microservice
+start_microservice 8073 "aline-bank-microservice/bank-microservice/target/bank-microservice-0.1.0.jar" 
+
+# Account Microservice
+start_microservice 8074 "aline-account-microservice/account-microservice/target/account-microservice-0.1.0.jar" 
+
+# Transaction Microservice
+start_microservice 8072 "aline-transaction-microservice/transaction-microservice/target/transaction-microservice-0.1.0.jar" 

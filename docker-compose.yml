@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "12345678"
+      MYSQL_DATABASE: "aline"
+      MYSQL_PASSWORD: "12345678"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  api-gateway:
+    build:
+      context: ./aline-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: "docker"
+    depends_on:
+      - mysql-db
+
+  user-service:
+    build:
+      context: ./aline-user-microservice
+      dockerfile: Dockerfile
+    ports:
+      - "8070:8070"
+    depends_on:
+      - mysql-db
+
+  underwriter-service:
+    build:
+      context: ./aline-underwriter-microservice
+      dockerfile: Dockerfile
+    ports:
+      - "8071:8071"
+    depends_on:
+      - mysql-db
+
+  account-service:
+    build:
+      context: ./aline-account-microservice
+      dockerfile: Dockerfile
+    ports:
+      - "8074:8074"
+    depends_on:
+      - mysql-db
+
+  bank-service:
+    build:
+      context: ./aline-bank-microservice
+      dockerfile: Dockerfile
+    ports:
+      - "8073:8073"
+    depends_on:
+      - mysql-db
+
+  transaction-service:
+    build:
+      context: ./aline-transaction-microservice
+      dockerfile: Dockerfile
+    ports:
+      - "8072:8072"
+    depends_on:
+      - mysql-db
+
+  admin-portal:
+    build:
+      context: ./aline-admin-portal
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
+  member-dashboard:
+    build:
+      context: ./member-dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+
+  landing-page:
+    build:
+      context: ./aline-landing-portal
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+
+volumes:
+  mysql-data:

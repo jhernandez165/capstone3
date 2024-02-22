@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define an array of service ports your microservices use
-declare -a service_ports=(8070 8071 8072 8080 8074 8073)
+declare -a service_ports=(8070 8071 8072 8080 8074 8073 8090)
 
 # Function to kill a process given its port
 kill_service_on_port() {
