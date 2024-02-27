@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aline-account-microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aline-account-microservice
+  template:
+    metadata:
+      labels:
+        app: aline-account-microservice
+    spec:
+      containers:
+      - name: aline-account-microservice
+        image: direstbounty/capstone:account-service
+        ports:
+        - containerPort: 8074
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "docker"
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql-db:3306/aline?useSSL=false&allowPublicKeyRetrieval=true"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "root"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "12345678"
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: "update"
+        - name: SPRING_JPA_SHOW_SQL
+          value: "true"
+        - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+          value: "org.hibernate.dialect.MySQL8Dialect"
+        - name: AUTHORIZATION_HEADER
+          valueFrom:
+            secretKeyRef:
+              name: api-bearer-token
+              key: bearerToken

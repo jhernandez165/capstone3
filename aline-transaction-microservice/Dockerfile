@@ -1,11 +1,16 @@
-# Use Maven for building the application
+# Builder stage
 FROM maven:3.9.6-eclipse-temurin-17 as builder
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
-# Copy the built JAR file from the build stage
-COPY --from=build /app/target/*.jar ./transaction-microservice-0.1.0.jar
-# Expose port 8080
+
+# Final stage
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY --from=builder /app/transaction-microservice/target/transaction-microservice-0.1.0.jar /app/transaction-microservice.jar
+
+# Expose the port the application runs on
 EXPOSE 8072
-# Command to run the application
-CMD ["java", "-jar", "transaction-microservice-0.1.0.jar"]
+
+# Run the JAR file
+ENTRYPOINT ["java", "-jar", "/app/transaction-microservice.jar"]

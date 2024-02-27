@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aline-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aline-gateway
+  template:
+    metadata:
+      labels:
+        app: aline-gateway
+    spec:
+      containers:
+      - name: aline-gateway
+        image: direstbounty/capstone:api-gateway
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_APPLICATION_NAME
+          value: "api-gateway"
+        - name: SERVER_PORT
+          value: "8080"
+        - name: AUTHORIZATION_HEADER
+          valueFrom:
+            secretKeyRef:
+              name: api-bearer-token
+              key: bearerToken

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: member-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: member-dashboard
+  template:
+    metadata:
+      labels:
+        app: member-dashboard
+    spec:
+      containers:
+      - name: member-dashboard
+        image: direstbounty/capstone:aline-member-dashboard-latest
+        ports:
+        - containerPort: 4200
+        env:
+        - name: REACT_APP_API_BASEURL
+          value: "http://aline-gateway:8080"

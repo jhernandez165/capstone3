@@ -9,20 +9,17 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Use the OpenJDK image for the runtime
-FROM openjdk:17-jdk-slim
+FROM openjdk:11-jre-slim as production
 
 # Set a working directory inside the container
 WORKDIR /app
 
 # Copy the JAR file from the builder stage into the production image
-COPY --from=builder ./underwriter-microservice/target/underwriter-microservice-0.1.0.jar /app/underwriter-microservice.jar
-
+COPY --from=builder /app/user-microservice/target/user-microservice-0.1.0.jar /app/user-microservice.jar
 
 # Expose the port the microservice runs on
 EXPOSE 8070
 
-# Set the environment variable for Spring's active profile
-ENV SPRING_PROFILES_ACTIVE=docker
 
 # Command to run the microservice
 ENTRYPOINT ["java", "-jar", "/app/user-microservice.jar"]

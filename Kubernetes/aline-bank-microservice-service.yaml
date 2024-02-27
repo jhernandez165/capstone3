@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aline-bank-microservice
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8073
+    targetPort: 8073
+  selector:
+    app: aline-bank-microservice

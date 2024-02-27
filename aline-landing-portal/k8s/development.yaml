@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aline-landing-portal-deployment
+  labels:
+    app: aline-landing-portal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aline-landing-portal
+  template:
+    metadata:
+      labels:
+        app: aline-landing-portal
+    spec:
+      containers:
+      - name: aline-landing-portal
+        image: direstbounty/capstone:aline-landing-portal-latest
+        ports:
+        - containerPort: 3000

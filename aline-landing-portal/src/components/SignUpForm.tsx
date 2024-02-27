@@ -116,7 +116,7 @@ class SignUpForm extends Component<{email: string}, {currentStep: number,
             }
         }
 
-         catch (e: any) {
+         catch (e) {
             helpers.setSubmitting(false);
             const response: AxiosResponse = e.response;
             if (response) {

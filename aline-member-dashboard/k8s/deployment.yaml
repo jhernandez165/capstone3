@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: member-dashboard-deployment
+  labels:
+    app: member-dashboard
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: member-dashboard
+  template:
+    metadata:
+      labels:
+        app: member-dashboard
+    spec:
+      containers:
+      - name: member-dashboard
+        image: direstbounty/capstone:member-dashboard-latest
+        ports:
+        - containerPort: 4200

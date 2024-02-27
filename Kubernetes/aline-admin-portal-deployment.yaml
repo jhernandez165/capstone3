@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aline-admin-portal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aline-admin-portal
+  template:
+    metadata:
+      labels:
+        app: aline-admin-portal
+    spec:
+      containers:
+      - name: aline-admin-portal
+        image: direstbounty/capstone:aline-admin-portal-latest
+        ports:
+        - containerPort: 3007
+        env:
+        - name: EXTEND_ESLINT
+          value: "true"
+        - name: REACT_APP_API_BASEURL
+          value: "http://aline-gateway:8080"
+        - name: REACT_APP_TOKEN_NAME
+          value: "yJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiYXV0aG9yaXR5IjoiYWRtaW5pc3RyYXRvciIsImlhdCI6MTcwNzY5NTYyNSwiZXhwIjoxNzA4OTA1MjI1fQ.ebVLchXN7ixbo5BXBGMzNvhCXhRqKj3F9RvlE6MrbnY"
+        - name: REACT_APP_BROKER_URL
+          value: "http://localhost:3007" 

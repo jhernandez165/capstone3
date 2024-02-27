@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: landing-portal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: landing-portal
+  template:
+    metadata:
+      labels:
+        app: landing-portal
+    spec:
+      containers:
+      - name: landing-portal
+        image: direstbounty/capstone:aline-landing-portal
+        ports:
+        - containerPort: 3000
+        env:
+        - name: EXTEND_ESLINT
+          value: "true"
+        - name: REACT_APP_API_BASEURL
+          value: "http://aline-gateway:8080"
+        - name: REACT_APP_TOKEN_NAME
+          value: "eyJhbGciOiJIUzIlNiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91liwiaWF0IjoxNTE2MjM5MDIyfQ.Sf1KxwRJSMeKKF2QT4fwpMeJf36P0k6yJV_adQssw5c"
+        - name: REACT_APP_BROKER_URL
+          value: "http://localhost:3000"

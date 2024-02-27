@@ -9,7 +9,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Use the OpenJDK image for the runtime
-FROM openjdk:11-jre-slim
+FROM openjdk:11-jre-slim as production
 
 # Set a working directory inside the container
 WORKDIR /app

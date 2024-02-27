@@ -6,7 +6,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "12345678"
       MYSQL_DATABASE: "aline"
-      MYSQL_PASSWORD: "12345678"
     ports:
       - "3306:3306"
     volumes:
@@ -20,6 +19,11 @@ services:
       - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: "docker"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-db:3306/aline?useSSL=false&allowPublicKeyRetrieval=true"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "12345678"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
     depends_on:
       - mysql-db
 
@@ -29,6 +33,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8070:8070"
+    environment:
+      SPRING_PROFILES_ACTIVE: "docker"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-db:3306/aline?useSSL=false&allowPublicKeyRetrieval=true"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "12345678"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "org.hibernate.dialect.MySQL8Dialect"
     depends_on:
       - mysql-db
 
@@ -38,6 +50,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8071:8071"
+    environment:
+      SPRING_PROFILES_ACTIVE: "docker"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-db:3306/aline?useSSL=false&allowPublicKeyRetrieval=true"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "12345678"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "org.hibernate.dialect.MySQL8Dialect"
     depends_on:
       - mysql-db
 
@@ -47,6 +67,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8074:8074"
+    environment:
+      SPRING_PROFILES_ACTIVE: "docker"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-db:3306/aline?useSSL=false&allowPublicKeyRetrieval=true"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "12345678"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "org.hibernate.dialect.MySQL8Dialect"
     depends_on:
       - mysql-db
 
@@ -56,6 +84,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8073:8073"
+    environment:
+      SPRING_PROFILES_ACTIVE: "docker"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-db:3306/aline?useSSL=false&allowPublicKeyRetrieval=true"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "12345678"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "org.hibernate.dialect.MySQL8Dialect"
     depends_on:
       - mysql-db
 
@@ -65,29 +101,45 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8072:8072"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/aline?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "12345678"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: 'true'
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: 'true'
     depends_on:
       - mysql-db
+
 
   admin-portal:
     build:
       context: ./aline-admin-portal
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3007:3007"
+    depends_on:
+      - api-gateway
 
   member-dashboard:
     build:
       context: ./member-dashboard
       dockerfile: Dockerfile
     ports:
-      - "3001:3001"
+      - "4200:4200"
+    depends_on:
+      - api-gateway
 
   landing-page:
     build:
       context: ./aline-landing-portal
       dockerfile: Dockerfile
     ports:
-      - "3002:3002"
+      - "3000:3000"
+    depends_on:
+      - api-gateway
 
 volumes:
   mysql-data:

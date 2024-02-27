@@ -18,6 +18,8 @@
     "@types/crypto-js": "^4.0.2",
     "@types/jest": "^26.0.24",
     "@types/node": "^12.20.16",
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9",
     "@types/react-input-mask": "^3.0.1",
     "@types/react-router-dom": "^5.1.8",
     "@types/yup": "^0.29.13",
@@ -30,9 +32,9 @@
     "jest-css-modules-transform": "^4.3.0",
     "node-sass": "^6.0.1",
     "postcss": "^8.3.5",
-    "react": "^18.2.0",
+    "react": "^17.0.2",
     "react-currency-input-field": "^3.4.2",
-    "react-dom": "^18.2.0",
+    "react-dom": "^17.0.2",
     "react-input-mask": "^3.0.0-alpha.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -40,6 +42,7 @@
     "react-transition-group": "^4.4.2",
     "ts-node": "^10.0.0",
     "tsconfig-paths-webpack-plugin": "^3.5.1",
+    "typescript": "^4.3.5",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
   },
@@ -75,13 +78,10 @@
   },
   "devDependencies": {
     "@types/bootstrap": "^5.0.17",
-    "@types/react": "^18.2.55",
-    "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "craco-alias": "^3.0.1",
     "eslint": "^7.30.0",
-    "eslint-plugin-react": "^7.24.0",
-    "typescript": "^5.3.3"
+    "eslint-plugin-react": "^7.24.0"
   }
 }
