@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aline-bank-microservice
+spec:
+  selector:
+    app: aline-bank-microservice
+  ports:
+    - protocol: TCP
+      port: 8073
+      targetPort: 8073
+  type: NodePort

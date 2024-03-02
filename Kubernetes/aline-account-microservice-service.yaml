@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: aline-account-microservice
 spec:
-  type: ClusterIP # Use NodePort or LoadBalancer if external access is needed
+  type: ClusterIP 
   ports:
   - port: 8074
     targetPort: 8074

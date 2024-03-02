@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aline-bank-microservice
+  labels:
+    app: aline-bank-microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aline-bank-microservice
+  template:
+    metadata:
+      labels:
+        app: aline-bank-microservice
+    spec:
+      containers:
+      - name: aline-bank-microservice
+        image: direstbounty/capstone:bank-service
+        ports:
+        - containerPort: 8073
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://mysql-db:3306/aline
+        - name: SPRING_DATASOURCE_USERNAME
+          value: root
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: '12345678'

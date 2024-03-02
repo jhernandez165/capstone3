@@ -15,7 +15,7 @@ transaction_descriptions = {
 }
 
 # Configuration
-BASE_URL = 'http://localhost:8072'  # Adjust the port number to match your transaction microservice
+BASE_URL = 'http://localhost:8072' 
 TRANSACTION_ENDPOINT = f"{BASE_URL}/transactions"
 HEADERS = {
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiYXV0aG9yaXR5IjoiYWRtaW5pc3RyYXRvciIsImlhdCI6MTcwNzY5NTYyNSwiZXhwIjoxNzA4OTA1MjI1fQ.ebVLchXN7ixbo5BXBGMzNvhCXhRqKj3F9RvlE6MrbnY',  # Replace 'your_token_here' with your actual token
@@ -42,8 +42,7 @@ def create_transaction(account_number, transaction_type, amount):
     if response.status_code in [200, 201]:
         print("Transaction processed successfully:", response.json())
     else:
-        print(f"Failed to process transaction. Status code: {response.status_code}, 
-              Response: {response.text}")
+        print(f"Failed to process transaction. Status code: {response.status_code}, Response: {response.text}")
 
 if __name__ == "__main__":
     account_number = input("Enter the account number for the transaction: ")

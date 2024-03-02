@@ -31,13 +31,4 @@ spec:
       - name: mysql-storage
         persistentVolumeClaim:
           claimName: mysql-pv-claim
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql-db
-spec:
-  ports:
-  - port: 3306
-  selector:
-    app: mysql-db
+

@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: aline-admin-portal
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
   - port: 3007
     targetPort: 3007
-    nodePort: 30007 
   selector:
     app: aline-admin-portal

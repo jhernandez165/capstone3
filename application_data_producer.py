@@ -32,7 +32,7 @@ def generate_application_data():
         "phone": faker.numerify('(###) ###-####'),
         "socialSecurity": faker.ssn(),
         "driversLicense": faker.bothify(text='?###??##', letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-        "income": faker.random_int(min=1000000, max=3000000),
+        "income": faker.random_int(min=15000000, max=30000000),
         "address": faker.street_address(),
         "city": faker.city(),
         "state": faker.state_abbr(),

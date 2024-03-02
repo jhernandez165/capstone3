@@ -17,7 +17,7 @@ WORKDIR /app
 # Copy the JAR file from the builder stage into the production image
 COPY --from=builder /app/user-microservice/target/user-microservice-0.1.0.jar /app/user-microservice.jar
 
-# Expose the port the microservice runs on
+# Expose the port 
 EXPOSE 8070
 
 
