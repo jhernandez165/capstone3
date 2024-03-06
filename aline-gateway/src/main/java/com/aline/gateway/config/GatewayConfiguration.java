@@ -50,24 +50,23 @@ public class GatewayConfiguration {
     }
 
     @Bean
-    public CorsWebFilter corsConfiguration() {
-        final CorsConfiguration corsConfiguration = new CorsConfiguration();
+public CorsWebFilter corsConfiguration() {
+    final CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        log.info("Allowing origins: {}", String.join(", ", gatewayProperties.getPortalOrigins()));
+    // Allow all origins
+    corsConfiguration.addAllowedOrigin("*");
 
-        corsConfiguration.setAllowedOrigins(gatewayProperties.getPortalOrigins());
-        corsConfiguration.setAllowedMethods(Collections.singletonList(CorsConfiguration.ALL));
-        corsConfiguration.setAllowedHeaders(Arrays.asList(
-                HttpHeaders.AUTHORIZATION,
-                HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS,
-                HttpHeaders.CONTENT_TYPE));
-        corsConfiguration.setExposedHeaders(Collections.singletonList(HttpHeaders.AUTHORIZATION));
+    corsConfiguration.setAllowedMethods(Collections.singletonList(CorsConfiguration.ALL));
+    corsConfiguration.setAllowedHeaders(Arrays.asList(
+            HttpHeaders.AUTHORIZATION,
+            HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS,
+            HttpHeaders.CONTENT_TYPE));
+    corsConfiguration.setExposedHeaders(Collections.singletonList(HttpHeaders.AUTHORIZATION));
 
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
+    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", corsConfiguration);
 
-        return new CorsWebFilter(source);
-
-    }
+    return new CorsWebFilter(source);
+}
 
 }

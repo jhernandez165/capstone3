@@ -2,6 +2,8 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: mysql-pv-volume
+  namespace: microservices-system  # Specify the namespace here
+
   labels:
     type: local
 spec:
@@ -17,6 +19,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
+  namespace: microservices-system  # Specify the namespace here
 spec:
   storageClassName: manual
   accessModes:

@@ -31,6 +31,4 @@ app:
           - "@/accounts/{segment}"
           - "@/members/{segment}/accounts"
     portal-origins:
-      - "http://localhost:4200"
-      - "http://localhost:3007"
-      - "http://localhost:3000"
+      - "*"

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aline-admin-portal
+  namespace: microservices-system  # Specify the namespace here
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: aline-admin-portal
-        image: direstbounty/capstone:aline-admin-portal-latest
+        image: 1abdulrehman/microservicesproject:admin-service
         ports:
         - containerPort: 3007
         env:
@@ -23,6 +24,6 @@ spec:
         - name: REACT_APP_API_BASEURL
           value: "http://aline-gateway:8080"
         - name: REACT_APP_TOKEN_NAME
-          value: "yJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiYXV0aG9yaXR5IjoiYWRtaW5pc3RyYXRvciIsImlhdCI6MTcwNzY5NTYyNSwiZXhwIjoxNzA4OTA1MjI1fQ.ebVLchXN7ixbo5BXBGMzNvhCXhRqKj3F9RvlE6MrbnY"
+          value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c2"
         - name: REACT_APP_BROKER_URL
-          value: "http://localhost:3007" 
+          value: "http://admin-portal:3007" 

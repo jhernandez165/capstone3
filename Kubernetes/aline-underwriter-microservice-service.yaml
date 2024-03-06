@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: aline-underwriter-microservice
+  name: underwriter-service
+  namespace: microservices-system  # Specify the namespace here
 spec:
   type: ClusterIP
   ports:

@@ -7,7 +7,12 @@ spring:
 
 app:
   gateway:
-    service-host: "http://localhost"
+    service-host:
+      user: "http://user-service"
+      underwriter: "http://underwriter-service"
+      account: "http://account-service"
+      bank: "http://bank-service"
+      transaction: "http://transaction-service"    
     path-prefix: "/api"
     routes:
       - id: "user"
@@ -31,6 +36,4 @@ app:
           - "@/accounts/{segment}"
           - "@/members/{segment}/accounts"
     portal-origins:
-      - "http://localhost:4200"
-      - "http://localhost:3007"
-      - "http://localhost:3000"
+      - "*"

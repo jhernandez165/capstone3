@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: landing-portal
+  namespace: microservices-system  # Specify the namespace here
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: landing-portal
-        image: direstbounty/capstone:aline-landing-portal
+        image: 1abdulrehman/microservicesproject:landing-portal
         ports:
         - containerPort: 3000
         env:
@@ -23,6 +24,6 @@ spec:
         - name: REACT_APP_API_BASEURL
           value: "http://aline-gateway:8080"
         - name: REACT_APP_TOKEN_NAME
-          value: "eyJhbGciOiJIUzIlNiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91liwiaWF0IjoxNTE2MjM5MDIyfQ.Sf1KxwRJSMeKKF2QT4fwpMeJf36P0k6yJV_adQssw5c"
+          value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c2"
         - name: REACT_APP_BROKER_URL
-          value: "http://localhost:3000"
+          value: "http://landing-portal:3000"

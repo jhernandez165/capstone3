@@ -21,7 +21,7 @@ spec:
         - containerPort: 8074
         env:
         - name: SPRING_DATASOURCE_URL
-          value: jdbc:mysql://mysql-db:3306/aline
+          value: jdbc:mysql://mysql-service:3306/aline
         - name: SPRING_DATASOURCE_USERNAME
           value: root
         - name: SPRING_DATASOURCE_PASSWORD

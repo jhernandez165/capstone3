@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aline-transaction-microservice
+  namespace: microservices-system  # Specify the namespace here
 spec:
   replicas: 1
   selector:
@@ -14,14 +15,14 @@ spec:
     spec:
       containers:
       - name: aline-transaction-microservice
-        image: direstbounty/capstone:transaction-service
+        image: 1abdulrehman/microservicesproject:transaction-service
         ports:
         - containerPort: 8072
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: "docker"
         - name: SPRING_DATASOURCE_URL
-          value: "jdbc:mysql://mysql-db:3306/aline?useSSL=false&allowPublicKeyRetrieval=true"
+          value: "jdbc:mysql://mysql-service:3306/aline?useSSL=false&allowPublicKeyRetrieval=true"
         - name: SPRING_DATASOURCE_USERNAME
           value: "root"
         - name: SPRING_DATASOURCE_PASSWORD
