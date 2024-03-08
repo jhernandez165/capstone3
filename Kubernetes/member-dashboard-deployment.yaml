@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: member-dashboard
-        image: 1abdulrehman/microservicesproject:member-dashboard 
+        image: direstbounty/member-dashboard:latest
         ports:
         - containerPort: 4200
         env:

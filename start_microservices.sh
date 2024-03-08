@@ -12,7 +12,7 @@ start_microservice() {
 }
 
 # Gateway Microservice
-start_microservice 8080 "aline-gateway/target/aline-gateway-0.0.1-SNAPSHOT.jar --server.port=8090"
+start_microservice 8080 "aline-gateway/target/aline-gateway-0.0.1-SNAPSHOT.jar"
 
 # Underwriter Microservice
 start_microservice 8071 "aline-underwriter-microservice/underwriter-microservice/target/underwriter-microservice-0.1.0.jar" 

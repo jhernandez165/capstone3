@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   application: {
-    api: 'http://aline-gateway:8080/api', //TODO:
-    landingPortal: 'http://admin-portal:3007'
+    api: 'http://localhost:8080/api', //TODO:
+    landingPortal: 'http://localhost:3007'
   }
 };
 

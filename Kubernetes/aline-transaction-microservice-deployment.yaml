@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: aline-transaction-microservice
-        image: 1abdulrehman/microservicesproject:transaction-service
+        image: direstbounty/capstone:transaction-service
         ports:
         - containerPort: 8072
         env:

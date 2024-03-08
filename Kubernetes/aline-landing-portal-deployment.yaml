@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: landing-portal
-        image: 1abdulrehman/microservicesproject:landing-portal
+        image: direstbounty/landing-portal:latest
         ports:
         - containerPort: 3000
         env:

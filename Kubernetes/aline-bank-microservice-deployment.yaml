@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: aline-bank-microservice
-        image: 1abdulrehman/microservicesproject:bank-service
+        image: direstbounty/capstone:bank-service
         ports:
         - containerPort: 8073
         env:

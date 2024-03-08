@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: aline-underwriter-microservice
-        image: 1abdulrehman/microservicesproject:underwriter-service
+        image: direstbounty/underwriter-microservice:latest
         ports:
         - containerPort: 8071
         env:

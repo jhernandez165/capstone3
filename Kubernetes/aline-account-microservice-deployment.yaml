@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: aline-account-microservice
-        image: 1abdulrehman/microservicesproject:account-service
+        image: direstbounty/capstone:account-service
         ports:
         - containerPort: 8074
         env:

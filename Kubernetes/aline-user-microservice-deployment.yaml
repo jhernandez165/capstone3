@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: aline-user-microservice
-        image: 1abdulrehman/microservicesproject:user-service
+        image: direstbounty/capstone:user-service
         ports:
         - containerPort: 8070
         env:
