@@ -34,20 +34,24 @@ export class AuthService extends BaseHttpService {
    * @param unauthorizedHandler   Unauthorized login callback. (Display error message)
    */
   login(credentials: Credentials,
-        successHandler?: (response: HttpResponse<any>) => void,
-        unauthorizedHandler?: (err: HttpErrorResponse) => Observable<never>): void {
-    this.client.post(this.getApi('/login'), credentials, {
-      observe: 'response'
-    }).pipe(catchError(err => unauthorizedHandler ? unauthorizedHandler(err) : throwError(err)))
-      .subscribe(
-      res => {
-        const token = res.headers.get('Authorization');
-        this.jwtService.saveJwt(token!);
-        this.getCurrentUser();
-        if (successHandler) successHandler.call(null, res);
-      }
-    );
-  }
+    successHandler?: (response: HttpResponse<any>) => void,
+    unauthorizedHandler?: (err: HttpErrorResponse) => Observable<never>): void {
+this.client.post(this.getApi('/login'), credentials, { observe: 'response' })
+  .pipe(catchError(err => unauthorizedHandler ? unauthorizedHandler(err) : throwError(err)))
+  .subscribe(res => {
+    const token = res.headers.get('Authorization');
+    console.log('Token from response header:', token); // Add this line
+    if (token) {
+      this.jwtService.saveJwt(token);
+      console.log('Token saved to local storage:', localStorage.getItem('jwt'));
+      this.getCurrentUser();
+      if (successHandler) successHandler.call(null, res);
+    } else {
+      console.log('Full response:', res);
+      console.log('No token in response headers'); // Add this line
+    }
+  });
+}
 
   logout(): void {
     this.jwtService.deleteJwt();

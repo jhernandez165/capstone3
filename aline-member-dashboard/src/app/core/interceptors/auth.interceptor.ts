@@ -9,14 +9,17 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private jwtService: JwtService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (this.jwtService.getJwt()) {
+    console.log('JWT from service:', this.jwtService.getJwt());
+    const jwtToken = this.jwtService.getJwt();
+    if (jwtToken) {
       const authRequest = request.clone({
         setHeaders: {
-          Authorization: this.jwtService.getJwt()!
+          Authorization: `Bearer ${jwtToken}`
         }
       });
       return next.handle(authRequest);
     }
     return next.handle(request);
   }
+  
 }

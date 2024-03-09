@@ -11,14 +11,23 @@ const UserAPI =  {
      */
     login: async function(credentials)  {
         try {
-            const res = await axios.post('/api/login', credentials);
-            if(res.status===200) localStorage.setItem(process.env.REACT_APP_TOKEN_NAME, res.headers.authorization)
-            return res;
-        }catch (e){
+            const res = await axios.post('/login', credentials);
+            console.log('Response Headers:', res.headers); // This should log all headers
+            if(res.status===200) {
+                const token = res.headers['authorization'] || res.headers['Authorization'];
+                console.log('Authorization Header:', token); // This should log the token
+                if (token) {
+                    localStorage.setItem(process.env.REACT_APP_TOKEN_NAME, token);
+                }
+                return res;
+            } else {
+                throw new Error('Login response was not OK.');
+            }
+            }catch (e){
             if (e.response.status === 403 ) return new Error('Invalid Credentials');
             else return new Error('Oops! We\'re checking what the problem is.')
         }
-
+    
     },
     create: async function (userDetails) {
         try {

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import requests
+import os
 from faker import Faker
 import random
 
@@ -15,12 +16,11 @@ transaction_descriptions = {
 }
 
 # Configuration
-BASE_URL = 'http://localhost:8072' 
+BASE_URL = 'http://localhost:8072'
+bear_token = os.getenv('BEARER_TOKEN')
 TRANSACTION_ENDPOINT = f"{BASE_URL}/transactions"
-HEADERS = {
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiYXV0aG9yaXR5IjoiYWRtaW5pc3RyYXRvciIsImlhdCI6MTcwNzY5NTYyNSwiZXhwIjoxNzA4OTA1MjI1fQ.ebVLchXN7ixbo5BXBGMzNvhCXhRqKj3F9RvlE6MrbnY',  # Replace 'your_token_here' with your actual token
-    'Content-Type': 'application/json'
-}
+HEADERS = {'Authorization': f'{bear_token}'}
+
 
 def create_transaction(account_number, transaction_type, amount):
     """Create a transaction with a predefined description and merchant details."""

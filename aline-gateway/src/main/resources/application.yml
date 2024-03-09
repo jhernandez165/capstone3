@@ -61,7 +61,7 @@ app:
           - "@/transactions/{segment}"
           - "@/members/{segment}/transactions"
           - "@/accounts/{segment}/transactions"
-    portl-aorigins:
+    portal-rigins:
       - "*"
 logging:
   level:

@@ -9,7 +9,7 @@ Modules:
     requests: Used to send HTTP requests.
     faker: Used to generate fake data for the application.
 """
-
+import os
 import requests
 from faker import Faker
 
@@ -17,8 +17,9 @@ faker = Faker()
 
 # Configuration
 BASE_URL = 'http://localhost:8071'
+bear_token = os.getenv('BEARER_TOKEN')
 APPLICATION_ENDPOINT = f"{BASE_URL}/applications"
-HEADERS = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiYXV0aG9yaXR5IjoiYWRtaW5pc3RyYXRvciIsImlhdCI6MTcwNzY5NTYyNSwiZXhwIjoxNzA4OTA1MjI1fQ.ebVLchXN7ixbo5BXBGMzNvhCXhRqKj3F9RvlE6MrbnY'}
+HEADERS = {'Authorization': f'{bear_token}'}
 
 def generate_application_data():
     """Generate fake data for a new application."""

@@ -10,7 +10,11 @@ export class JwtService {
   constructor() { }
 
   saveJwt(token: string): void {
+    console.log('Saving JWT to storage:', token);
+    // Optionally remove the 'Bearer ' prefix if present
+    const formattedToken = token.startsWith('Bearer ') ? token : `Bearer ${token}`;
     localStorage.setItem('jwt', token);
+    console.log('JWT after saving:', localStorage.getItem('jwt'));
   }
 
   deleteJwt(): void {

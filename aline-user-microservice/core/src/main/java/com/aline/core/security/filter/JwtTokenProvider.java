@@ -83,6 +83,7 @@ public class JwtTokenProvider extends UsernamePasswordAuthenticationFilter {
                 .setExpiration(Date.from(Instant.now().plus(expireAfterDays, ChronoUnit.DAYS)))
                 .signWith(jwtSecretKey, SignatureAlgorithm.HS256)
                 .compact();
+                System.out.println("Token being sent in header: " + token);
 
         response.setHeader(HttpHeaders.AUTHORIZATION, token);
     }

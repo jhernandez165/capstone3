@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import requests
 from faker import Faker
 
@@ -6,9 +7,10 @@ from faker import Faker
 faker = Faker()
 
 # Configuration
+bear_token = os.getenv('BEARER_TOKEN')
 BASE_URL = 'http://localhost:8071'
 APPLICANTS_ENDPOINT = f"{BASE_URL}/applicants"
-HEADERS = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiYXV0aG9yaXR5IjoiYWRtaW5pc3RyYXRvciIsImlhdCI6MTcwNzY5NTYyNSwiZXhwIjoxNzA4OTA1MjI1fQ.ebVLchXN7ixbo5BXBGMzNvhCXhRqKj3F9RvlE6MrbnY'}
+HEADERS = {'Authorization': f'{bear_token}'}
 
 
 # Your JWT token (ensure to replace with a valid token if needed)

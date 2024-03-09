@@ -9,8 +9,8 @@ spring:
       ddl-auto: update
     show-sql: false
   datasource:
-    username: dev
-    password: mypassword
+    username: root
+    password: '12345678'
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://127.0.0.1:3306/aline"
     initialization-mode: always
@@ -27,7 +27,7 @@ app:
   security:
     secret-key: "ThisIsAGreatSecretKey!!!"
     jwt:
-      secret-key: "eyJhbGciOiJIUzIlNiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91liwiaWF0IjoxNTE2MjM5MDIyfQ.Sf1KxwRJSMeKKF2QT4fwpMeJf36P0k6yJV_adQssw5c"
+      secret-key: "yJhbGciOiJIUzIlNiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91liwiaWF0IjoxNTE2MjM5MDIyfQ.Sf1KxwRJSMeKKF2QT4fwpMeJf36P0k6yJV_adQssw5ec"
   aws:
     email:
       template-bucket-name: "aline-email-templates"

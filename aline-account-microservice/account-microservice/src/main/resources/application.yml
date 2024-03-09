@@ -10,8 +10,8 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    username: dev
-    password: mypassword
+    username: root
+    password: '12345678'
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://127.0.0.1:3306/aline"
     initialization-mode: always

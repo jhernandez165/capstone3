@@ -58,8 +58,13 @@ export default function UserSessionProvider({children}) {
     const fetchTokenFromStorage = () => {
         if (STORAGE_NAME in localStorage) {
             let fullToken = localStorage.getItem(STORAGE_NAME);
+            console.log(`Token from storage: ${fullToken}`);
             try {
+                if (typeof fullToken === 'undefined' || !fullToken.startsWith('Bearer ')) {
+                    throw new Error('Token is undefined or does not start with expected prefix');
+                }
                 const decodedJWT = jwt_decode(fullToken.replace('Bearer ', ''));
+                console.log('Decoded JWT:', decodedJWT);
                 let isExpired = (Date.now() >= decodedJWT.exp * 1000);
                 if(isExpired) localStorage.removeItem(STORAGE_NAME)
                 let isLoggedIn = !isExpired && fullToken.includes('Bearer ') && decodedJWT.authority==='administrator';
@@ -72,12 +77,14 @@ export default function UserSessionProvider({children}) {
                     user: decodedJWT.sub
                 })
             } catch (e) {
+                console.error('Error decoding token:', e);
                 setToken({...userTokenInitialState, checkedStorage: true});
             }
         }
     }
 
     useEffect(() => {
+        console.log('Checking token from storage...');
         fetchTokenFromStorage()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

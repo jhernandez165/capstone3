@@ -3,6 +3,7 @@ package com.aline.gateway.config;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.GatewayFilterSpec;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
@@ -67,6 +68,19 @@ public CorsWebFilter corsConfiguration() {
     source.registerCorsConfiguration("/**", corsConfiguration);
 
     return new CorsWebFilter(source);
+}
+
+@Configuration
+public class LoggingConfiguration {
+
+    @Bean
+    public GlobalFilter postGlobalFilter() {
+        return (exchange, chain) -> {
+            log.info("Request: {} {}", exchange.getRequest().getMethod(), exchange.getRequest().getURI());
+            exchange.getRequest().getHeaders().forEach((name, values) -> values.forEach(value -> log.info("{}: {}", name, value)));
+            return chain.filter(exchange);
+        };
+    }
 }
 
 }

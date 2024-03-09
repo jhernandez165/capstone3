@@ -52,7 +52,7 @@ public abstract class AbstractWebSecurityConfig extends WebSecurityConfigurerAda
         configureHttp(http);
 
         http.authorizeRequests()
-                .antMatchers("/api/login").permitAll()
+               // .antMatchers("/api/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()

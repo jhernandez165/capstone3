@@ -80,6 +80,7 @@
   },
   "devDependencies": {
     "gulp-sass": "^5.1.0",
+    "http-proxy-middleware": "^2.0.6",
     "jest-sonar-reporter": "^2.0.0",
     "react-styleguidist": "^11.1.7",
     "sonarqube-scanner": "^2.8.1"

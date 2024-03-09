@@ -9,14 +9,16 @@ Modules:
 """
 
 import requests
+import os
 from faker import Faker
 
 # Initialize Faker
 faker = Faker()
 
 # Configuration
+bear_token = os.getenv('BEARER_TOKEN')
 BASE_URL = 'http://localhost:8073'
-HEADERS = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiYXV0aG9yaXR5IjoiYWRtaW5pc3RyYXRvciIsImlhdCI6MTcwNzY5NTYyNSwiZXhwIjoxNzA4OTA1MjI1fQ.ebVLchXN7ixbo5BXBGMzNvhCXhRqKj3F9RvlE6MrbnY'}
+HEADERS = {'Authorization': f'{bear_token}'}
 
 def create_bank():
     """Create a dummy bank."""
@@ -27,7 +29,11 @@ def create_bank():
         "state": faker.state_abbr(),
         "zipcode": faker.zipcode()
     }
+    print(f"Requesting URL: {BASE_URL}/banks")
+    print(f"Headers: {HEADERS}")
     response = requests.post(f"{BASE_URL}/banks", json=bank_data, headers=HEADERS, timeout=10)
+    print(f"Response Status Code: {response.status_code}")
+    print(f"Response Body: {response.text}")
     if response.status_code == 201:
         print("Bank created successfully:", response.json())
         return response.json()['id']
