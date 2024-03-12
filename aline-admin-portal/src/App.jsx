@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateApplicationComponent from './components/CreateApplicationComponent';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -16,6 +17,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fab} from '@fortawesome/free-brands-svg-icons';
+import { setupAuthInterceptor } from './interceptors/auth.interceptor';
 import {
     faChevronUp,
     faEllipsisV,
@@ -30,7 +32,7 @@ import {
     faEyeSlash
 } from '@fortawesome/free-solid-svg-icons';
 import {Helmet} from 'react-helmet';
-
+setupAuthInterceptor();
 function App() {
     library.add(fab, faPlus, faChevronUp, faHome, faUserPlus,
         faUsers, faUsersCog, faEllipsisV, faPen, faSpinner,
@@ -58,6 +60,7 @@ function App() {
                         <ProtectedRoute path='/transaction/create' component={TransactionForm}/>
                         <ProtectedRoute path='/transaction' component={Transactions}/>
                         <ProtectedRoute path='/chat' component={Chat}/>
+                        <ProtectedRoute path='/application/create' component={CreateApplicationComponent}/>
                         <Route path='*' component={NotFound}/>
                     </Switch>
 

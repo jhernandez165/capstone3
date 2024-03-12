@@ -84,6 +84,7 @@ class SignUpForm extends Component<{email: string}, {currentStep: number,
     }
 
     async onSubmit(values: SignUpFormSchema, helpers: FormikHelpers<SignUpFormSchema>) {
+        console.log("Form submission started with values:", values);
         const createApplicant: CreateApplicant = {
             address: values.address,
             city: values.city,
@@ -109,6 +110,9 @@ class SignUpForm extends Component<{email: string}, {currentStep: number,
         };
         try {
             const {data, status} = await this.apiService.postApplication(applyRequest);
+            console.log("Application submitted successfully with status:", status, "and response data:", data);
+
+
 
             if (status === 201) {
                 helpers.setSubmitting(false);
@@ -117,8 +121,10 @@ class SignUpForm extends Component<{email: string}, {currentStep: number,
         }
 
          catch (e) {
+            console.error("Failed to submit application:", e);
             helpers.setSubmitting(false);
             const response: AxiosResponse = e.response;
+            
             if (response) {
                 const data = response.data;
                 if (response.status === 409) {

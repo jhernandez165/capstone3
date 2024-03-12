@@ -40,7 +40,7 @@ this.client.post(this.getApi('/login'), credentials, { observe: 'response' })
   .pipe(catchError(err => unauthorizedHandler ? unauthorizedHandler(err) : throwError(err)))
   .subscribe(res => {
     const token = res.headers.get('Authorization');
-    console.log('Token from response header:', token); // Add this line
+    console.log('Token from response header:', token);
     if (token) {
       this.jwtService.saveJwt(token);
       console.log('Token saved to local storage:', localStorage.getItem('jwt'));
@@ -48,7 +48,7 @@ this.client.post(this.getApi('/login'), credentials, { observe: 'response' })
       if (successHandler) successHandler.call(null, res);
     } else {
       console.log('Full response:', res);
-      console.log('No token in response headers'); // Add this line
+      console.log('No token in response headers'); 
     }
   });
 }

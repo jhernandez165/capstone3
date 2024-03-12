@@ -8,6 +8,7 @@ import com.aline.core.security.service.AbstractAuthorizationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 @WebSecurityConfiguration
@@ -25,6 +26,11 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig {
                 .permitAll()
                 .antMatchers(HttpMethod.PUT, "/users/password-reset")
                 .permitAll();
+    }
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
 }

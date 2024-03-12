@@ -9,7 +9,8 @@ class ApplicationApiService extends BaseApiService {
     }
 
     postApplication(request: ApplyRequest): Promise<AxiosResponse<ApplyResponse>> {
-        return axios.post<ApplyRequest, AxiosResponse<ApplyResponse>>(this.getApi("/applications"), request);
+        console.log("Sending application request:", request);
+        return axios.post<ApplyRequest, AxiosResponse<ApplyResponse>>("http://localhost:8080/api/applications", request);
     }
 
 }

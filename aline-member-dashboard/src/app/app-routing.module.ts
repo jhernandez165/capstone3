@@ -15,11 +15,11 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'dashboard'
+    redirectTo: 'get-started'
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('@dashboard/dashboard.module').then(m => m.DashboardModule),
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
     data: {
       title: AppRoutingTitles.DASHBOARD
     }

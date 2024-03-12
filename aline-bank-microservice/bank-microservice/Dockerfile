@@ -1,5 +1,5 @@
 # Use a builder image with Maven to build the Java project
-FROM maven:3.8.1-jdk-11 as builder
+FROM maven:3.9.6-eclipse-temurin-17 as builder
 WORKDIR /app
 
 # Copy the project files into the image
@@ -9,7 +9,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Use the OpenJDK image for the runtime
-FROM openjdk:17-jdk-slim
+FROM openjdk:11-jre-slim as production
 
 # Set a working directory inside the container
 WORKDIR /app

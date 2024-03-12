@@ -9,11 +9,11 @@ spring:
       ddl-auto: update
     show-sql: true
   datasource:
-    username: dev
-    password: mypassword
+    username: "${DB_USERNAME:dev}" # Default to 'dev' if not specified
+    password: "${DB_PASSWORD:mypassword}" # Default to 'mypassword' if not specified
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://127.0.0.1:3306/aline"
-    initialization-mode: always # This is to automatically insert data.sql
+    url: "jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/aline?useSSL=false&serverTimezone=UTC"
+    initialization-mode: always
 
 app:
   email:
@@ -23,11 +23,24 @@ app:
     email:
       template-bucket-name: "aline-email-templates"
     credentials:
-      access-key-id: "${APP_USER_ACCESS_KEY}"
-      secret-access-key: "${APP_USER_SECRET_KEY}"
-  landing-portal: "${PORTAL_LANDING}"
-  member-dashboard: "${PORTAL_DASHBOARD}"
+      access-key-id: "${AWS_ACCESS_KEY_ID}" 
+      secret-access-key: "${AWS_SECRET_ACCESS_KEY}"
+  landing-portal: "${PORTAL_LANDING_URL}"
+  member-dashboard: "${PORTAL_DASHBOARD_URL}"
   security:
-    secret-key: "ThisIsAGreatSecretKey!!!"
+    secret-key: "ThisIsAGreatSecretKey!!!" 
     jwt:
-      secret-key: "eyJhbGciOiJIUzIlNiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91liwiaWF0IjoxNTE2MjM5MDIyfQ.Sf1KxwRJSMeKKF2QT4fwpMeJf36P0k6yJV_adQssw5c"
+      secret-key: "eyJhbGciOiJIUzIlNiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91liwiaWF0IjoxNTE2MjM5MDIyfQ.Sf1KxwRJSMeKKF2QT4fwpMeJf36P0k6yJV_adQssw5c" 
+
+
+logging:
+  level:
+    root: INFO
+    com.aline: DEBUG
+
+# Actuator endpoints for monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,metrics,loggers"

@@ -12,6 +12,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '@environments/environment';
 import {CardModule} from '@app/card/card.module';
+import { AuthInterceptor } from '@core/interceptors/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -29,12 +31,14 @@ import {CardModule} from '@app/card/card.module';
         GlobalModalModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
-            // Register the ServiceWorker as soon as the app is stable
-            // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000'
         })
     ],
-    providers: [],
+    providers: [{
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true,
+    }],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

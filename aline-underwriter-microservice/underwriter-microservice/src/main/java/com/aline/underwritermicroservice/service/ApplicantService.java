@@ -1,5 +1,6 @@
 package com.aline.underwritermicroservice.service;
 
+import java.util.logging.Logger;
 import com.aline.core.dto.request.CreateApplicant;
 import com.aline.core.dto.request.UpdateApplicant;
 import com.aline.core.dto.response.ApplicantResponse;
@@ -32,7 +33,9 @@ import javax.validation.Valid;
 @Service
 @RequiredArgsConstructor
 @Slf4j(topic = "Applicant Service")
+
 public class ApplicantService {
+
 
     private final ApplicantRepository repository;
 
@@ -63,12 +66,14 @@ public class ApplicantService {
      * @throws ConflictException Thrown from <code>validateUniqueness</code> method.
      */
     public ApplicantResponse createApplicant(@Valid CreateApplicant createApplicant) {
+        log.info("Creating applicant with details: {}", createApplicant);
         Applicant applicant = mapper.map(createApplicant, Applicant.class);
         validateUniqueness(applicant.getEmail(),
                 applicant.getPhone(),
                 applicant.getDriversLicense(),
                 applicant.getSocialSecurity());
         Applicant saved = repository.save(applicant);
+        log.info("Applicant created successfully with ID: {}", saved.getId());
         return mapper.map(saved, ApplicantResponse.class);
     }
 
@@ -80,6 +85,7 @@ public class ApplicantService {
      */
     @PreAuthorize("@applicantAuth.canAccess(#id)")
     public ApplicantResponse getApplicantById(long id) {
+        log.info("Retrieved applicant with ID: {}", id);
         Applicant found = repository.findById(id).orElseThrow(ApplicantNotFoundException::new);
         return mapper.map(found, ApplicantResponse.class);
     }
@@ -93,12 +99,14 @@ public class ApplicantService {
      */
     @PreAuthorize("@applicantAuth.canAccess(#id)")
     public void updateApplicant(long id, @Valid UpdateApplicant newValues) {
+        log.info("Updating applicant with ID: {}", id);
         validateUniqueness(newValues.getEmail(),
                 newValues.getPhone(),
                 newValues.getDriversLicense(),
                 newValues.getSocialSecurity());
         Applicant toUpdate = repository.findById(id).orElseThrow(ApplicantNotFoundException::new);
         skipNullMapper.map(newValues, toUpdate);
+        log.info("Applicant with ID: {} updated successfully.", id);
         repository.save(toUpdate);
     }
 
@@ -114,6 +122,7 @@ public class ApplicantService {
     public void deleteApplicant(long id) {
         Applicant toDelete = repository.findById(id).orElseThrow(ApplicantNotFoundException::new);
         repository.delete(toDelete);
+        log.info("Applicant with ID: {} deleted successfully.", id);
     }
 
 
@@ -125,6 +134,7 @@ public class ApplicantService {
      */
     @RoleIsManagement
     public PaginatedResponse<ApplicantResponse> getApplicants(@NonNull final Pageable pageable, @NonNull final String search) {
+        log.info("Retrieving applicants page: {} with pageSize: {}", pageable.getPageNumber(), pageable.getPageSize());
         SimpleSearchSpecification<Applicant> spec = new SimpleSearchSpecification<>(search);
         Page<ApplicantResponse> responsePage = repository.findAll(spec, pageable)
                 .map(applicant -> mapper.map(applicant, ApplicantResponse.class));
@@ -150,6 +160,8 @@ public class ApplicantService {
             String phone,
             String driversLicense,
             String socialSecurity) {
+        log.debug("Validating uniqueness for email: {}, phone: {}, driversLicense: {}, socialSecurity: {}", email, phone, driversLicense, socialSecurity);
+
         if (repository.existsByEmail(email) && email != null)
             throw new EmailConflictException();
         if (repository.existsByPhone(phone) && phone != null)

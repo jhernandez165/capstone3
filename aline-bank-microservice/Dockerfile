@@ -1,24 +1,22 @@
-# Use a builder image with Maven to build the Java project
-FROM maven:3.8.1-jdk-11 as builder
+# Stage 1: Build the application
+FROM maven:3.8.1-openjdk-11-slim as builder
 WORKDIR /app
 
-# Copy the project files into the image
+# Copy the source code
 COPY . .
 
-# Package the application without running tests for the build stage
+# Build the application without running tests
 RUN mvn clean package -DskipTests
 
-# Use the OpenJDK image for the runtime
-FROM openjdk:17-jdk-slim
-
-# Set a working directory inside the container
+# Stage 2: Create the runtime image
+FROM openjdk:11-jre-slim
 WORKDIR /app
 
-# Copy the JAR file from the builder stage into the production image
+# Copy the JAR file from the builder stage
 COPY --from=builder /app/bank-microservice/target/bank-microservice-0.1.0.jar /app/bank-microservice.jar
 
-# Expose the port the microservice runs on
+# Expose the port the application runs on
 EXPOSE 8073
 
-# Command to run the microservice
-ENTRYPOINT ["java", "-jar", "/app/bank-microservice.jar"]
+# Run the JAR file
+ENTRYPOINT ["java", "-jar", "bank-microservice.jar"]

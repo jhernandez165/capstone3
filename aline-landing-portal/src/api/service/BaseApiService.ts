@@ -4,10 +4,13 @@ abstract class BaseApiService {
 
     protected constructor() {
         this.api = process.env.REACT_APP_API!;
+        console.log(`Base API URL: ${this.api}`);
     }
 
     protected getApi(endpoint: string) {
-        return `${this.api}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
+        const fullUrl = `${this.api}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
+        console.log(`Full API URL: ${fullUrl}`);
+        return fullUrl;
     }
 
 }

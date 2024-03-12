@@ -5,6 +5,7 @@ import NotFound from "@pages/NotFound";
 import AppNav from "@components/AppNav";
 import SignUp from "@pages/SignUp";
 import Footer from "@components/Footer";
+import CreateApplicationComponent from "./components/CreateApplicationComponent";
 
 const AppRouter = () => {
 
@@ -46,6 +47,7 @@ const AppRouter = () => {
                     <Route exact path="/" component={Landing}/>
                     <Route path="/signup" component={SignUp}/>
                     <Route path="/login" component={RedirectToLogin}/>
+                    <Route path="/application/create" component={CreateApplicationComponent}/>
                     <Route component={NotFound}/>
                 </Switch>
             </Container>

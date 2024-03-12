@@ -23,6 +23,6 @@ spec:
         - name: SPRING_DATASOURCE_URL
           value: jdbc:mysql://mysql-service:3306/aline
         - name: SPRING_DATASOURCE_USERNAME
-          value: root
+          value: 'root'
         - name: SPRING_DATASOURCE_PASSWORD
           value: '12345678'
